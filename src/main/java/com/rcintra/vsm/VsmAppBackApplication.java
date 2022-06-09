@@ -38,6 +38,7 @@ public class VsmAppBackApplication implements CommandLineRunner {
 		rafael.setNome("Rafael");
 		rafael.setCpfCnpj("1234123");
 		rafael.setCidade(saoPaulo);
+		rafael.setHabilitado(Boolean.TRUE);
 		
 		service.saveCliente(rafael);
 		LOG.info("SAVE: " + rafael);

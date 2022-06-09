@@ -49,8 +49,12 @@ public class ClienteController {
 		
 		try {
 			
-			clienteEncontrado.setNome(cliente.getNome());
-			clienteEncontrado.setCidade(cliente.getCidade());
+			if (cliente != null && cliente.getId() != null) {
+				clienteEncontrado.setNome(cliente.getNome());
+				clienteEncontrado.setCidade(cliente.getCidade());				
+			} else {
+				clienteEncontrado.setHabilitado(clienteEncontrado.getHabilitado() ? Boolean.FALSE : Boolean.TRUE);
+			}
 			
 			return new ResponseEntity<>(service.saveCliente(clienteEncontrado), HttpStatus.CREATED);
 		

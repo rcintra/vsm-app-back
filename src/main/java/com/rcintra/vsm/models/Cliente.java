@@ -30,6 +30,7 @@ public class Cliente {
 	private String bairro;
 	private String telefone;
 	private String email;
+	private Boolean habilitado;
 	
 	@ManyToOne
 	@JoinColumn(name = "cidade.id")
