@@ -22,6 +22,8 @@ import com.rcintra.vsm.service.ClienteService;
 @RestController
 @RequestMapping("/api")
 public class ClienteController {
+	
+	private static final String MSG_CLIENTE_NOT_FOUND = "Cliente não encontrado";
 
 	@Autowired
 	private ClienteService service;
@@ -37,7 +39,7 @@ public class ClienteController {
 		List<Cliente> clienteEncontrado = service.findAllClientes(cpfCnpj);
 		
 		if (ObjectUtils.isEmpty(clienteEncontrado)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOT_FOUND);
 		}
 		
 		return new ResponseEntity<>(clienteEncontrado, HttpStatus.OK);
@@ -49,7 +51,7 @@ public class ClienteController {
 		Cliente clienteEncontrado = service.findById(id);
 		
 		if (ObjectUtils.isEmpty(clienteEncontrado)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOT_FOUND);
 		}
 		
 		return new ResponseEntity<>(clienteEncontrado, HttpStatus.OK);
@@ -65,7 +67,7 @@ public class ClienteController {
 		Cliente clienteEncontrado = service.findById(id);
 		
 		if (ObjectUtils.isEmpty(clienteEncontrado)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOT_FOUND);
 		}
 		
 		try {
