@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.rcintra.vsm.models.Cliente;
 import com.rcintra.vsm.service.ClienteService;
@@ -29,9 +31,28 @@ public class ClienteController {
 		return new ResponseEntity<>(service.findAllClientes(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/clientes/cpfcnpj/{cpfCnpj}")
+	public ResponseEntity<List<Cliente>> listarClientesPorCpfCnpj(@PathVariable String cpfCnpj) {
+		
+		List<Cliente> clienteEncontrado = service.findAllClientes(cpfCnpj);
+		
+		if (ObjectUtils.isEmpty(clienteEncontrado)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado");
+		}
+		
+		return new ResponseEntity<>(clienteEncontrado, HttpStatus.OK);
+	}
+	
 	@GetMapping("/cliente/{id}")
 	public ResponseEntity<Cliente> consultarClientePorId(@PathVariable Long id) {
-		return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+		
+		Cliente clienteEncontrado = service.findById(id);
+		
+		if (ObjectUtils.isEmpty(clienteEncontrado)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado");
+		}
+		
+		return new ResponseEntity<>(clienteEncontrado, HttpStatus.OK);
 	}
 
 	@PostMapping("/cliente")
@@ -43,8 +64,8 @@ public class ClienteController {
 	public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
 		Cliente clienteEncontrado = service.findById(id);
 		
-		if (clienteEncontrado == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		if (ObjectUtils.isEmpty(clienteEncontrado)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado");
 		}
 		
 		try {

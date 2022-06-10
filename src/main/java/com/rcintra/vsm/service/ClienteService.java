@@ -3,6 +3,7 @@ package com.rcintra.vsm.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,12 @@ public class ClienteService {
 	
 	public List<Cliente> findAllClientes() {
 		return clienteRepository.findAll();
+	}
+	
+	public List<Cliente> findAllClientes(String cpfCnpj) {
+		if (StringUtils.isBlank(cpfCnpj)) 
+			return clienteRepository.findAll();
+		return clienteRepository.findByCpfCnpj(cpfCnpj);
 	}
 	
 	public List<Cidade> findAllCidades() {
