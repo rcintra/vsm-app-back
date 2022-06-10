@@ -43,11 +43,19 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 	
-	public Cliente findById(final Long id) {
+	public Cliente findClienteById(final Long id) {
 		Cliente cliente = null;
 		Optional<Cliente> opt = clienteRepository.findById(id);
 		if (opt.isPresent()) 
 			cliente = opt.get();
 		return cliente;
+	}
+	
+	public Cidade findCidadeById(final Long id) {
+		Cidade cidade = null;
+		Optional<Cidade> opt = cidadeRepository.findById(id);
+		if (opt.isPresent()) 
+			cidade = opt.get();
+		return cidade;
 	}
 }

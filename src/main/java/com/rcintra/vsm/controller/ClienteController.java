@@ -23,7 +23,7 @@ import com.rcintra.vsm.service.ClienteService;
 @RequestMapping("/api")
 public class ClienteController {
 	
-	private static final String MSG_CLIENTE_NOT_FOUND = "Cliente não encontrado";
+	private static final String MSG_CLIENTE_NOT_FOUND = "Cliente não encontrado.";
 
 	@Autowired
 	private ClienteService service;
@@ -48,7 +48,7 @@ public class ClienteController {
 	@GetMapping("/cliente/{id}")
 	public ResponseEntity<Cliente> consultarClientePorId(@PathVariable Long id) {
 		
-		Cliente clienteEncontrado = service.findById(id);
+		Cliente clienteEncontrado = service.findClienteById(id);
 		
 		if (ObjectUtils.isEmpty(clienteEncontrado)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOT_FOUND);
@@ -64,7 +64,7 @@ public class ClienteController {
 	
 	@PutMapping("/cliente/{id}")
 	public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
-		Cliente clienteEncontrado = service.findById(id);
+		Cliente clienteEncontrado = service.findClienteById(id);
 		
 		if (ObjectUtils.isEmpty(clienteEncontrado)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOT_FOUND);
@@ -84,7 +84,6 @@ public class ClienteController {
 		} catch(DataAccessException e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		
 	}
 }
