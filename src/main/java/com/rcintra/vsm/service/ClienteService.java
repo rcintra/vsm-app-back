@@ -40,6 +40,11 @@ public class ClienteService {
 	}
 	
 	public Cliente saveCliente(Cliente cliente) {
+		cliente.setHabilitado(Boolean.TRUE);
+		return clienteRepository.save(cliente);
+	}
+	
+	public Cliente updateCliente(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 	

@@ -72,14 +72,37 @@ public class ClienteController {
 		
 		try {
 			
-			if (cliente != null && cliente.getId() != null) {
 				clienteEncontrado.setNome(cliente.getNome());
-				clienteEncontrado.setCidade(cliente.getCidade());				
-			} else {
-				clienteEncontrado.setHabilitado(clienteEncontrado.getHabilitado() ? Boolean.FALSE : Boolean.TRUE);
-			}
+				//clienteEncontrado.setCpfCnpj(); nao permite alterar o cpf/cnpj
+				clienteEncontrado.setCidade(cliente.getCidade());	
+				//clienteEncontrado.setBairro();
+				//clienteEncontrado.setEmail();
+				//clienteEncontrado.setNumero();
+				//clienteEncontrado.setTelefone();
+				
 			
-			return new ResponseEntity<>(service.saveCliente(clienteEncontrado), HttpStatus.CREATED);
+			return new ResponseEntity<>(service.updateCliente(clienteEncontrado), HttpStatus.CREATED);
+		
+		} catch(DataAccessException e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	
+	@PutMapping("/cliente/status/{id}")
+	public ResponseEntity<Cliente> updateStatusCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+		Cliente clienteEncontrado = service.findClienteById(id);
+		
+		if (ObjectUtils.isEmpty(clienteEncontrado)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOT_FOUND);
+		}
+		
+		try {
+			
+			clienteEncontrado.setHabilitado(clienteEncontrado.getHabilitado() ? Boolean.FALSE : Boolean.TRUE);
+			
+			return new ResponseEntity<>(service.updateCliente(clienteEncontrado), HttpStatus.CREATED);
 		
 		} catch(DataAccessException e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
