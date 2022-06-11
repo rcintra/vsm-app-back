@@ -77,6 +77,7 @@ public class ClienteController {
 				clienteEncontrado.setEndereco(cliente.getEndereco());
 				clienteEncontrado.setNumero(cliente.getNumero());
 				clienteEncontrado.setBairro(cliente.getBairro());
+				clienteEncontrado.setCep(cliente.getCep());
 				clienteEncontrado.setTelefone(cliente.getTelefone());
 				clienteEncontrado.setEmail(cliente.getEmail());
 				clienteEncontrado.setCidade(cliente.getCidade());	

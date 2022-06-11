@@ -65,6 +65,7 @@ public class CidadeController {
 		try {
 			
 			cidadeEncontrada.setNome(cidade.getNome());
+			cidadeEncontrada.setUf(cidade.getUf());
 			
 			return new ResponseEntity<>(
 					service.saveCidade(cidadeEncontrada), 
