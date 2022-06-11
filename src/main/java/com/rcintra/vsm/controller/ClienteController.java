@@ -74,12 +74,12 @@ public class ClienteController {
 			
 				clienteEncontrado.setNome(cliente.getNome());
 				//clienteEncontrado.setCpfCnpj(); nao permite alterar o cpf/cnpj
+				clienteEncontrado.setEndereco(cliente.getEndereco());
+				clienteEncontrado.setNumero(cliente.getNumero());
+				clienteEncontrado.setBairro(cliente.getBairro());
+				clienteEncontrado.setTelefone(cliente.getTelefone());
+				clienteEncontrado.setEmail(cliente.getEmail());
 				clienteEncontrado.setCidade(cliente.getCidade());	
-				//clienteEncontrado.setBairro();
-				//clienteEncontrado.setEmail();
-				//clienteEncontrado.setNumero();
-				//clienteEncontrado.setTelefone();
-				
 			
 			return new ResponseEntity<>(service.updateCliente(clienteEncontrado), HttpStatus.CREATED);
 		

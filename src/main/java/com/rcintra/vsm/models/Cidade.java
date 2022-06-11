@@ -24,7 +24,6 @@ public class Cidade {
 	
 	@Column(nullable = false)
 	private String nome;
-	
-	
+	private String uf;
 	
 }

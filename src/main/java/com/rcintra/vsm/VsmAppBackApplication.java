@@ -30,13 +30,13 @@ public class VsmAppBackApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		LOG.info("EXECUTING : command line runner");
 
-		Cidade saoPaulo = new Cidade(null, "Sao Paulo");
+		Cidade saoPaulo = new Cidade(null, "São Paulo", "SP");
 		service.saveCidade(saoPaulo);
 		LOG.info("SAVE: " + saoPaulo);
 		
 		Cliente rafael = new Cliente();
 		rafael.setNome("Rafael");
-		rafael.setCpfCnpj("1234123");
+		rafael.setCpfCnpj("1234123");		
 		rafael.setCidade(saoPaulo);
 		rafael.setHabilitado(Boolean.TRUE);
 		

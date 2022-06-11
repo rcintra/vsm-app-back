@@ -26,10 +26,13 @@ public class Cliente {
 	@Column(nullable = false)
 	private String cpfCnpj;
 	
+	private String endereco;
 	private Integer numero;
 	private String bairro;
 	private String telefone;
 	private String email;
+	private String cep;
+	
 	private Boolean habilitado;
 	
 	@ManyToOne
