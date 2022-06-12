@@ -2,6 +2,8 @@ package com.rcintra.vsm.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ import com.rcintra.vsm.service.ClienteService;
 
 @RestController
 @RequestMapping("/api")
-public class ClienteController {
+public class ClienteController extends BaseController {
 	
 	private static final String MSG_CLIENTE_NOT_FOUND = "Cliente não encontrado.";
 
@@ -58,12 +60,12 @@ public class ClienteController {
 	}
 
 	@PostMapping("/cliente")
-	public ResponseEntity<Cliente> saveCliente(@RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> saveCliente(@Valid @RequestBody Cliente cliente) {
 		return new ResponseEntity<>(service.saveCliente(cliente), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/cliente/{id}")
-	public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> updateCliente(@Valid @PathVariable Long id, @RequestBody Cliente cliente) {
 		Cliente clienteEncontrado = service.findClienteById(id);
 		
 		if (ObjectUtils.isEmpty(clienteEncontrado)) {

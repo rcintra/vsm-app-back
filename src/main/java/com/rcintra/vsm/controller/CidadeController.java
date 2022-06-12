@@ -2,6 +2,8 @@ package com.rcintra.vsm.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ import com.rcintra.vsm.service.ClienteService;
 
 @RestController
 @RequestMapping("/api")
-public class CidadeController {
+public class CidadeController extends BaseController {
 	
 	private static final String MSG_CIDADE_NOT_FOUND = "Cidade não encontrada.";
 	
@@ -46,7 +48,7 @@ public class CidadeController {
 	}
 	
 	@PostMapping("/cidade")
-	public ResponseEntity<Cidade> saveCidade(@RequestBody Cidade cidade) {
+	public ResponseEntity<Cidade> saveCidade(@Valid @RequestBody Cidade cidade) {
 		try {
 			return new ResponseEntity<>(service.saveCidade(cidade), HttpStatus.CREATED);
 		} catch (DataAccessException e) {
@@ -55,7 +57,7 @@ public class CidadeController {
 	}
 	
 	@PutMapping("/cidade/{id}")
-	public ResponseEntity<Cidade> updateCliente(@PathVariable Long id, @RequestBody Cidade cidade) {
+	public ResponseEntity<Cidade> updateCliente(@Valid @PathVariable Long id, @RequestBody Cidade cidade) {
 		Cidade cidadeEncontrada = service.findCidadeById(id);
 		
 		if (ObjectUtils.isEmpty(cidadeEncontrada)) {
@@ -77,4 +79,5 @@ public class CidadeController {
 		}
 		
 	}
+	
 }

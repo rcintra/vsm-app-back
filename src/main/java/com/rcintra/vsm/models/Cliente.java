@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -21,9 +22,11 @@ public class Cliente {
 	private Long id;
 	
 	@Column(nullable = false)
+	@NotBlank(message = "Nome do cliente obrigatório.")
 	private String nome;
 	
 	@Column(nullable = false)
+	@NotBlank(message = "Cpf/Cnpj do cliente obrigatório.")
 	private String cpfCnpj;
 	
 	private String endereco;

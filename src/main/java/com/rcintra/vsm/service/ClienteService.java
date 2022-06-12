@@ -41,6 +41,11 @@ public class ClienteService {
 	
 	public Cliente saveCliente(Cliente cliente) {
 		cliente.setHabilitado(Boolean.TRUE);
+		Cidade cidade = cliente.getCidade();
+		cliente.setCidade(null);
+		if (cidade != null && cidade.getId() != null) {
+			cliente.setCidade(findCidadeById(cidade.getId()));
+		}
 		return clienteRepository.save(cliente);
 	}
 	
